@@ -29,5 +29,15 @@ namespace Backup.Data
             }
             return _instance;
         }
+
+        private string Serialize(List<Paths> paths)
+        {
+            return JsonSerializer.Serialize<List<Paths>>(paths);
+        }
+
+        private List<Paths> Deserialize(string json)
+        {
+            return JsonSerializer.Deserialize<List<Paths>>(json);
+        }
     }
 }
