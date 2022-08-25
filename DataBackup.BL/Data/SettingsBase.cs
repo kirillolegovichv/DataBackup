@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
+using DataBackup.BL;
 
 namespace Backup.Data
 {
     public class SettingsBase
     {
         private const string filePath = @"backupTB.tb";
+
+        public List<Paths> AllPaths { get; private set; }
         
         private static SettingsBase _instance;
 
         private SettingsBase()
         {
-
+            AllPaths = new List<Paths>();
         }
 
         private static SettingsBase GetInstance()
