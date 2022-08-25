@@ -39,5 +39,24 @@ namespace Backup.Data
         {
             return JsonSerializer.Deserialize<List<Paths>>(json);
         }
+
+        public void Save(List<Paths> paths)
+        {
+            string json = Serialize(paths);
+
+            using (StreamWriter sw = new StreamWriter(filePath, false))
+            {
+                sw.Write(json);
+            }
+        }
+
+        public void Load()
+        {
+            using (StreamReader sr = new StreamReader(filePath))
+            {
+                string json = sr.ReadLine();
+                AllPaths = Deserialize(json);
+            }
+        }
     }
 }
