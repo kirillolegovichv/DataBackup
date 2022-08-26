@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using DataBackup.BL;
 
-namespace Backup.Data
+namespace DataBackup.BL.Data
 {
     public class SettingsBase
     {
@@ -21,7 +21,7 @@ namespace Backup.Data
             AllPaths = new List<Paths>();
         }
 
-        private static SettingsBase GetInstance()
+        public static SettingsBase GetInstance()
         {
             if (_instance == null)
             {
