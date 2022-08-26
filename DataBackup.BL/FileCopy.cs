@@ -13,20 +13,33 @@ namespace DataBackup.BL
     {
         private SettingsBase OnePath = SettingsBase.GetInstance();
         private DateTime _dateTime;
-        string SubPath;
+        string subPath;
 
 
-        public void CreateCatalog(string path)
+        public void CreateNewCatalog(string endpath)
         {
             _dateTime = new DateTime();
-            SubPath = string.Format(@"{0}", _dateTime);
+            subPath = string.Format(@"{0}", _dateTime);
 
-            DirectoryInfo dirInfo = new DirectoryInfo(path);
+            DirectoryInfo dirInfo = new DirectoryInfo(endpath);
             if (!dirInfo.Exists)
             {
                 dirInfo.Create();
             }
-            dirInfo.CreateSubdirectory(SubPath)
+            dirInfo.CreateSubdirectory(subPath);
         }  
+
+        public void CopyOldCatalog(string startPath, string endPath)
+        {
+            foreach (var dirPath in Directory.GetDirectories(startPath, "*", SearchOption.AllDirectories))
+            {
+                Directory.CreateDirectory(dirPath.Replace(startPath, endPath));
+            }
+
+            foreach (var newPath in Directory.GetFiles(startPath, "*.*", SearchOption.AllDirectories))
+            {
+                File.Copy(newPath, newPath.Replace(startPath, endPath), true);
+            }
+        }
     }
 }
